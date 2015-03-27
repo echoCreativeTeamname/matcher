@@ -1,0 +1,77 @@
+<form action="/stores/<%= @store.id %>/update" accept-charset="UTF-8" method="post" class="form-horizontal">
+  <div class="form-group">
+    <label class="col-sm-2 control-label" style="text-align: left;">ID</label>
+    <div class="col-sm-10 control-label" style="text-align: left;">
+        <%= @store.id %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="col-sm-2 control-label" style="text-align: left;">UUID</label>
+    <div class="col-sm-10 control-label" style="text-align: left;">
+        <%= @store.uuid %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="col-sm-2 control-label" style="text-align: left;">identifier</label>
+    <div class="col-sm-10 control-label" style="text-align: left;">
+        <%= @store.identifier %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="store_name" class="col-sm-2 control-label" style="text-align: left;">Naam</label>
+    <div class="col-sm-10">
+      <input value="<%= @store.name %>" class="form-control" type="text" name="store[name]" id="store_name" />
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="col-sm-2 control-label" style="text-align: left;">identifier</label>
+    <div class="col-sm-10 control-label" style="text-align: left;">
+        <a href="/storechain/<%= @store.chain.id %>"><%= @store.chain.name %></a>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="store_street" class="col-sm-2 control-label" style="text-align: left;">Adres</label>
+    <div class="col-sm-10">
+      <input value="<%= @store.street %>" class="form-control" type="text" name="store[street]" id="store_street" />
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="store_postalcode" class="col-sm-2 control-label" style="text-align: left;">Postcode</label>
+    <div class="col-sm-10">
+      <input value="<%= @store.postalcode %>" class="form-control" type="text" name="store[postalcode]" id="store_postalcode" />
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="store_city" class="col-sm-2 control-label" style="text-align: left;">Stad</label>
+    <div class="col-sm-10">
+      <input value="<%= @store.city %>" class="form-control" type="text" name="store[city]" id="store_city" />
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="store_latitude" class="col-sm-2 control-label" style="text-align: left;">Latitude</label>
+    <div class="col-sm-10">
+      <input value="<%= @store.latitude %>" class="form-control" type="text" name="store[latitude]" id="store_latitude" />
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="store_longitude" class="col-sm-2 control-label" style="text-align: left;">Longitude</label>
+    <div class="col-sm-10">
+      <input value="<%= @store.longitude %>" class="form-control" type="text" name="store[longitude]" id="store_longitude" />
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button type="submit" class="btn btn-default" name="commit">Opslaan</button>
+    </div>
+  </div>
+</form>

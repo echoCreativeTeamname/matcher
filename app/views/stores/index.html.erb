@@ -1,0 +1,16 @@
+<table class="table table-bordered">
+  <tr>
+    <th style="text-align: center;">#</th>
+    <th>Winkelketen</th>
+    <th>Naam</th>
+    <th>Stad</th>
+  </tr>
+  <% @stores.each do |store| %>
+  <tr onclick="window.location='stores/<%= store.id %>'">
+    <td style="text-align: center;"><%= store.id %></td>
+    <td><a href="/storechain/<%= store.chain.id %>"><%= store.chain.name %></a></td>
+    <td><%= store.name %></td>
+    <td><%= store.city %></td>
+  </tr>
+  <% end %>
+</table>

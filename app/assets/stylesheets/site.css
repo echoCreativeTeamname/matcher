@@ -1,0 +1,14 @@
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800);
+tr:hover {
+  background-color: rgba(0,0,0,0.05);
+}
+a.glyphicon {
+  color: #222;
+}
+a.glyphicon:hover, a.glyphicon:focus {
+  color: #555;
+  text-decoration: none;
+}
+body {
+  font-family: 'Open Sans', sans-serif;
+}
