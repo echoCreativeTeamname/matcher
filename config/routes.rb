@@ -11,4 +11,8 @@ Rails.application.routes.draw do
   get 'ingredients/:id/delete' => 'ingredients#delete'
   post 'ingredients/:id/update' => 'ingredients#update'
 
+  get 'recipes' => 'recipes#index'
+  get 'recipes/:id' => 'recipes#recipe'
+  post 'recipes/:id/update' => 'recipes#update'
+  get 'recipes/:id/delete' => 'recipes#delete'
 end

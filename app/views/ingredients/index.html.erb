@@ -2,6 +2,7 @@
 <table class="table table-bordered">
   <tr>
     <th style="text-align: center;">#</th>
+    <th style="text-align: center;"># of recipes</th>
     <th>naam</th>
     <th>gezondheid <small style="font-weight: 200;">0 = ongezond, 1 = normaal, 2 = erg gezond</small></th>
     <th>afbeelding</th>
@@ -10,6 +11,7 @@
   <% @ingredients.each do |ingredient| %>
   <tr onclick="window.location='ingredients/<%= ingredient.id %>'">
     <td style="text-align: center;"><%= ingredient.id %></td>
+    <td style="text-align: center;"><%= ingredient.recipes.size %></td>
     <td><%= ingredient.name %></td>
     <td><%= ingredient.healthclass %></td>
     <td><%=raw ingredient.imageurl.to_s != "" ? "<a href=\"#{ingredient.imageurl}\">ja</a>" : "nee" %></td>

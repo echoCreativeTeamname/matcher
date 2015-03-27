@@ -16,7 +16,7 @@ class IngredientsController < ApplicationController
   def update
     @ingredient = Ingredient.find(params[:id])
     @ingredient.update(getIngredientParameters)
-    redirect_to "/ingredients/#{params[:id]}?updated=true"
+    redirect_to "/ingredients?edited=true" 
   end
 
   # GET /ingredients/:id/delete

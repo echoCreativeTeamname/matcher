@@ -1,0 +1,13 @@
+<h2>Recepten</h2>
+<table class="table table-bordered">
+  <tr>
+    <th style="text-align: center;">#</th>
+    <th>naam</th>
+  </tr>
+  <% @recipes.each do |recipe| %>
+  <tr onclick="window.location='recipes/<%= recipe.id %>'">
+    <td style="text-align: center;"><%= recipe.id %></td>
+    <td><%= recipe.name %></td>
+  </tr>
+  <% end %>
+</table>
