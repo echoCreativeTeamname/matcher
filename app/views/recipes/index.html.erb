@@ -3,11 +3,14 @@
   <tr>
     <th style="text-align: center;">#</th>
     <th>naam</th>
+    <th>type</th>
   </tr>
   <% @recipes.each do |recipe| %>
   <tr onclick="window.location='recipes/<%= recipe.id %>'">
     <td style="text-align: center;"><%= recipe.id %></td>
     <td><%= recipe.name %></td>
+    <td><%= recipe.dish_type %></td>
   </tr>
   <% end %>
 </table>
+<a class="btn btn-info" href="/recipes/new">nieuw recept</a>

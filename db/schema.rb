@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150325211013) do
+ActiveRecord::Schema.define(version: 20150328200633) do
 
   create_table "authentication_tokens", force: :cascade do |t|
     t.integer  "user_id",    limit: 4
@@ -43,14 +43,14 @@ ActiveRecord::Schema.define(version: 20150325211013) do
     t.datetime "lastupdated"
   end
 
-  create_table "recipeingredients", id: false, force: :cascade do |t|
-    t.integer "recipe_id",     limit: 4,   null: false
-    t.integer "ingredient_id", limit: 4,   null: false
+  create_table "recipeingredients", force: :cascade do |t|
+    t.integer "recipe_id",     limit: 4
+    t.integer "ingredient_id", limit: 4
     t.string  "amount",        limit: 255
   end
 
-  add_index "recipeingredients", ["ingredient_id"], name: "index_ingredients_recipes_on_ingredient_id", using: :btree
-  add_index "recipeingredients", ["recipe_id"], name: "index_ingredients_recipes_on_recipe_id", using: :btree
+  add_index "recipeingredients", ["ingredient_id"], name: "index_recipeingredients_on_ingredient_id", using: :btree
+  add_index "recipeingredients", ["recipe_id"], name: "index_recipeingredients_on_recipe_id", using: :btree
 
   create_table "recipes", force: :cascade do |t|
     t.string  "uuid",        limit: 255

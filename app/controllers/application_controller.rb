@@ -16,5 +16,6 @@ class ApplicationController < ActionController::Base
     end
 
     return menu;
+    
   end
 end

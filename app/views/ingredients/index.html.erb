@@ -8,7 +8,7 @@
     <th>afbeelding</th>
     <th width="1px"></th>
   </tr>
-  <% @ingredients.each do |ingredient| %>
+  <% @ingredients.includes(:recipes).each do |ingredient| %>
   <tr onclick="window.location='ingredients/<%= ingredient.id %>'">
     <td style="text-align: center;"><%= ingredient.id %></td>
     <td style="text-align: center;"><%= ingredient.recipes.size %></td>

@@ -35,6 +35,35 @@
   </div>
 
   <div class="form-group">
+    <label for="recipe_portions" class="col-sm-2 control-label" style="text-align: left;">Porties</label>
+    <div class="col-sm-10">
+      <input placeholder="2" value="<%= @recipe.portions %>" class="form-control" type="text" name="recipe[portions]" id="recipe_portions" />
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="recipe_cookingtime" class="col-sm-2 control-label" style="text-align: left;">Tijd</label>
+    <div class="col-sm-10">
+      <input placeholder="30.0" value="<%= @recipe.cookingtime %>" class="form-control" type="text" name="recipe[cookingtime]" id="recipe_cookingtime" />
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="recipe_dish_type" class="col-sm-2 control-label" style="text-align: left;">Type</label>
+    <div class="col-sm-10">
+      <select class="form-control" name="recipe[dish_type]" id="recipe_dish_type">
+        <% ["avondeten", "soep", "middageten", "ontbijt", "tussendoortje", "toetje", "overig"].each do |i| %>
+          <% if(@recipe.dish_type == i) %>
+            <option selected value="<%= i %>"><%= i %></option>
+          <% else %>
+            <option value="<%= i %>"><%= i %></option>
+          <% end %>
+        <% end %>
+      </select>
+    </div>
+  </div>
+
+  <div class="form-group">
     <label for="recipe_imageurl" class="col-sm-2 control-label" style="text-align: left;">Afbeeldings-url</label>
     <div class="col-sm-10">
       <input placeholder="https://uva.yoeori.nl/img/recipes/apples.jpg" value="<%= @recipe.imageurl %>" class="form-control" type="text" name="recipe[imageurl]" id="recipe_imageurl" />
@@ -55,6 +84,43 @@
     </div>
   </div>
 </form>
+
+<form action="/recipes/<%= @recipe.id %>/add_ingredient" accept-charset="UTF-8" method="post"  class="form-horizontal">
+  <div class="form-group">
+    <label class="col-sm-2 control-label" style="text-align: left;">Ingredienten</label>
+    <div class="col-sm-10 control-label" style="text-align: left;">
+      <table class="table table-bordered">
+        <tr>
+          <th style="text-align: center;">#</th>
+          <th>naam</th>
+          <th>hoeveelheid</th>
+          <th width="1px"></th>
+        </tr>
+        <% @recipe.recipeingredients.each do |recipeingredient| %>
+          <tr>
+            <td style="text-align: center;"><%= recipeingredient.ingredient.id %></td>
+            <td><%= recipeingredient.ingredient.name %></td>
+            <td><%= recipeingredient.amount %></td>
+            <td style="text-align: center;"><a class="glyphicon glyphicon-remove" href="/recipes/<%= @recipe.id %>/delete_ingredient/<%= recipeingredient.ingredient.id %>"></a></td>
+          </tr>
+        <% end %>
+        <tr>
+          <td style="text-align: center;"></td>
+          <td>
+            <select class="form-control" name="ingredient_id" required>
+              <% Ingredient.all.each do |ingredient| %>
+                <option value="<%= ingredient.id %>"><%= ingredient.name %></option>
+              <% end %>
+            </select>
+          </td>
+          <td><input placeholder="9001 g" name="amount" class="form-control" type="text" required /></td>
+          <td><button class="btn btn-info"  type="submit"><span class="glyphicon glyphicon-ok"></span></button></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</form>
+
 <script type="text/javascript">
 function wanttodelete() {
   if(confirm('Weet je zeker dat je dit recept wilt verwijderen?')) {

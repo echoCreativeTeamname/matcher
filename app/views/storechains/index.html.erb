@@ -1,0 +1,15 @@
+<h2>Winkelketens</h2>
+<table class="table table-bordered">
+  <tr>
+    <th style="text-align: center;">#</th>
+    <th>Naam</th>
+    <th>Gezondheid</th>
+  </tr>
+  <% @storechains.each do |storechain| %>
+  <tr onclick="window.location='storechain/<%= storechain.id %>'">
+    <td style="text-align: center;"><%= storechain.id %></td>
+    <td><%= storechain.name %></td>
+    <td><%= storechain.healthclass %></td>
+  </tr>
+  <% end %>
+</table>
