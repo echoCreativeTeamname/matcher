@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150328200633) do
+ActiveRecord::Schema.define(version: 20150329190147) do
 
   create_table "authentication_tokens", force: :cascade do |t|
     t.integer  "user_id",    limit: 4
@@ -32,6 +32,8 @@ ActiveRecord::Schema.define(version: 20150328200633) do
     t.time    "openingtime"
     t.time    "closingtime"
   end
+
+  add_index "openinghours", ["date"], name: "index_openinghours_on_date", using: :btree
 
   create_table "products", force: :cascade do |t|
     t.string   "uuid",          limit: 255
