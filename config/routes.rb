@@ -20,4 +20,6 @@ Rails.application.routes.draw do
   get 'recipes/:id/delete' => 'recipes#delete'
   post 'recipes/:id/add_ingredient' => 'recipes#add_ingredient'
   get 'recipes/:id/delete_ingredient/:ingredient_id' => 'recipes#delete_ingredient'
+
+  get 'match' => 'match#index'
 end

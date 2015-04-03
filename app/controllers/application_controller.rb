@@ -9,6 +9,7 @@ class ApplicationController < ActionController::Base
       "storechains" => {name: "winkelketens", url: "/storechains"},
       "recipes" => {name: "recepten", url: "/recipes"},
       "ingredients" => {name: "ingrediënten", url: "/ingredients"},
+      "match" => {name: "match", url: "/match"}
     }
 
     if(menu[controller_name])
