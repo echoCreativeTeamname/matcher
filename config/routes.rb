@@ -22,4 +22,5 @@ Rails.application.routes.draw do
   get 'recipes/:id/delete_ingredient/:ingredient_id' => 'recipes#delete_ingredient'
 
   get 'match' => 'match#index'
+  get 'match/products/find' => 'match#find_product'
 end

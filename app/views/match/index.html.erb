@@ -1,48 +1,43 @@
-<h2><i>Er zijn <%= @ingredientCount %> <a href="/match/ingredients">ingrediënt(en)</a><!--TODO--> &amp; <%= @recipeCount %> <a href="/match/recipes">recept(en)</a> die nog moeten worden gematched</i></h2>
+<h2><i>Er zijn <%= @ingredientCount %> <a href="/match/ingredients">ingrediënt<%= (@ingredientCount != 1) ? "en" : "" %></a><!--TODO--> &amp; <%= @recipeCount %> <a href="/match/recipes">recept<%= (@recipeCount != 1) ? "en" : "" %></a> die nog moeten worden gematched</i></h2>
 <p>Recepten die nog niet gematched zijn worden niet weergeven door de API, van ongematchede ingredienten kan geen prijs worden gegeven.</p>
 <br />
-<h2>Ingrediënten</h2>
-<% if @unmatchedIngredients.size != 0 %>
-<table class="table table-bordered">
-  <tr>
-    <th style="text-align: center;">#</th>
-    <th>naam</th>
-    <th>gezondheid <small style="font-weight: 200;">0 = ongezond, 1 = normaal, 2 = erg gezond</small></th>
-    <th>afbeelding</th>
-    <th width="1px"></th>
-  </tr>
-  <% @unmatchedIngredients.each do |ingredient| %>
-  <tr onclick="window.location='ingredients/<%= ingredient.id %>'">
-    <td style="text-align: center; color: #FF4136;"><%= ingredient.id %></td>
-    <td><%= ingredient.name %></td>
-    <td><%= ingredient.healthclass %></td>
-    <td><%=raw ingredient.imageurl.to_s != "" ? "<a href=\"#{ingredient.imageurl}\">ja</a>" : "nee" %></td>
-    <td>
-      <a class="glyphicon glyphicon-remove" style="<%= ingredient.recipes.size == 0 ? "" : "opacity: 0.3" %>" href="<%= ingredient.recipes.size == 0 ? "ingredients/#{ingredient.id}/delete" : "#" %>"></a>
-    </td>
-  </tr>
-  <% end %>
-</table>
-<% else %>
-<p>Er zijn geen ungematchede ingrediënten.</p>
-<% end %>
-<br />
-<h2>Recepten</h2>
-<% if @unmatchedRecipes.size != 0 %>
-<table class="table table-bordered">
-  <tr>
-    <th style="text-align: center;">#</th>
-    <th>naam</th>
-    <th>type</th>
-  </tr>
-  <% @unmatchedRecipes.each do |recipe| %>
-  <tr onclick="window.location='recipes/<%= recipe.id %>'">
-    <td style="text-align: center;"><%= recipe.id %></td>
-    <td><%= recipe.name %></td>
-    <td><%= recipe.dish_type %></td>
-  </tr>
-  <% end %>
-</table>
-<% else %>
-<p>Er zijn geen ungematchede recepten.</p>
-<% end %>
+<div class="row">
+  <div class="col-md-6">
+    <h2>Ingrediënten</h2>
+    <% if @unmatchedIngredients.size != 0 %>
+    <table class="table table-bordered">
+      <tr>
+        <th style="text-align: center;">#</th>
+        <th>naam</th>
+      </tr>
+      <% @unmatchedIngredients.each do |ingredient| %>
+      <tr onclick="window.location='ingredients/<%= ingredient.id %>'">
+        <td style="text-align: center;"><%= ingredient.id %></td>
+        <td><%= ingredient.name %></td>
+      </tr>
+      <% end %>
+    </table>
+    <% else %>
+    <p>Er zijn geen ungematchede ingrediënten.</p>
+    <% end %>
+  </div>
+  <div class="col-md-6">
+    <h2>Recepten</h2>
+    <% if @unmatchedRecipes.size != 0 %>
+    <table class="table table-bordered">
+      <tr>
+        <th style="text-align: center;">#</th>
+        <th>naam</th>
+      </tr>
+      <% @unmatchedRecipes.each do |recipe| %>
+      <tr onclick="window.location='recipes/<%= recipe.id %>'">
+        <td style="text-align: center;"><%= recipe.id %></td>
+        <td><%= recipe.name %></td>
+      </tr>
+      <% end %>
+    </table>
+    <% else %>
+    <p>Er zijn geen ungematchede recepten.</p>
+    <% end %>
+  </div>
+</div>

@@ -6,24 +6,25 @@ class MatchController < ApplicationController
 		# ingredient count
 		@ingredientCount = 0
 		@unmatchedIngredients = []
-		Ingredient.all.includes(:products, :recipeingredients).each do |ing| 
+		Ingredient.all.includes(:products, :recipeingredients).each do |ing|
 			if ing.products.size < @chainCount
 				@ingredientCount += 1
 				@unmatchedIngredients << ing
 			end
 		end
 
-		@recipeCount = 0
+		@recipeCount = 1
 		@unmatchedRecipes = []
 	end
 
 	def ingredients
-		#Product.where(Product.arel_table[:name].matches('%biologische koffie%')).first.price.to_f
+
 	end
 
 	# /match/products/find?[name,chain_id]
 	def find_product
-
+		@products = Product.where(Product.arel_table[:name].matches("%#{params[:name]}%")).where(storechain_id: params[:chain_id]).all
+		#render :layout => false
 	end
 
 	# /match/recipes

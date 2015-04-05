@@ -1,0 +1,16 @@
+<table class="table table-bordered">
+  <tr>
+    <th style="text-align: center;">#</th>
+    <th>naam</th>
+    <th>hoeveelheid</th>
+    <th>prijs</th>
+  </tr>
+  <% @products.each do |product|%>
+  <tr onclick="">
+    <td style="text-align: center;"><%= product.id %></td>
+    <td><%= product.name %></td>
+    <td><%= product.amount %></td>
+    <td><%= product.price %></td>
+  </tr>
+  <% end %>
+</table>
