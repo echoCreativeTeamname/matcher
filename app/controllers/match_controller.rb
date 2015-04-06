@@ -21,11 +21,7 @@ class MatchController < ApplicationController
 
 	end
 
-	# /match/products/find?[name,chain_id]
-	def find_product
-		@products = Product.where(Product.arel_table[:name].matches("%#{params[:name]}%")).where(storechain_id: params[:chain_id]).all
-		#render :layout => false
-	end
+
 
 	# /match/recipes
 	def recipes
@@ -37,10 +33,15 @@ class MatchController < ApplicationController
 
 	end
 
-	# /match/ingredients/find
-	def find_ingredient
-
+	# /match/products/find?[name,chain_id]
+	def find_products
+		@products = Product.where(Product.arel_table[:name].matches("%#{params[:name]}%")).where(storechain_id: params[:chain_id]).all
+		render :layout => false
 	end
 
-
+	# /match/ingredients/find
+	def find_ingredients
+		@ingredients = Ingredient.where(Ingredient.arel_table[:name].matches("%#{params[:name]}%")).all
+		render :layout => false
+	end
 end

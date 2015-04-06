@@ -1,0 +1,16 @@
+<table class="table table-bordered">
+  <tr>
+    <th style="text-align: center;">#</th>
+    <th>naam</th>
+    <th>gezondheid</th>
+    <th>afbeelding</th>
+  </tr>
+  <% @ingredients.each do |ingredient|%>
+  <tr onclick="">
+    <td style="text-align: center;"><%= ingredient.id %></td>
+    <td><%= ingredient.name %></td>
+    <td><%= ingredient.healthclass %></td>
+    <td><%=raw ingredient.imageurl.to_s != "" ? "<a href=\"#{ingredient.imageurl}\">ja</a>" : "nee" %></td>
+  </tr>
+  <% end %>
+</table>

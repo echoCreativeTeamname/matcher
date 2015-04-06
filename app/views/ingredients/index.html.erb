@@ -1,5 +1,5 @@
 <h2>Ingrediënten</h2>
-<table class="table table-bordered">
+<table class="table table-bordered table-responsive">
   <tr>
     <th style="text-align: center;">#</th>
     <th style="text-align: center;"># of recipes</th>
@@ -8,9 +8,10 @@
     <th>afbeelding</th>
     <th width="1px"></th>
   </tr>
+  <% count = Storechain.all.size.to_i %>
   <% @ingredients.includes([:recipes, :products]).each do |ingredient| %>
   <tr onclick="window.location='ingredients/<%= ingredient.id %>'">
-    <% if(ingredient.products.all.size < Storechain.all.size) %>
+    <% if(ingredient.products.all.size < count) %>
     <td style="text-align: center; color: #FF4136;"><%= ingredient.id %></td>
     <% else %>
     <td style="text-align: center;"><%= ingredient.id %></td>
