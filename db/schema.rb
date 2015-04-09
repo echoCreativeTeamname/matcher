@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150329190147) do
+ActiveRecord::Schema.define(version: 20150406201512) do
 
   create_table "authentication_tokens", force: :cascade do |t|
     t.integer  "user_id",    limit: 4
@@ -25,6 +25,8 @@ ActiveRecord::Schema.define(version: 20150329190147) do
     t.integer "healthclass", limit: 4,   default: 1
     t.string  "imageurl",    limit: 255
   end
+
+  add_index "ingredients", ["uuid"], name: "index_ingredients_on_uuid", unique: true, using: :btree
 
   create_table "openinghours", force: :cascade do |t|
     t.integer "store_id",    limit: 4
@@ -44,6 +46,8 @@ ActiveRecord::Schema.define(version: 20150329190147) do
     t.string   "amount",        limit: 255
     t.datetime "lastupdated"
   end
+
+  add_index "products", ["uuid"], name: "index_products_on_uuid", unique: true, using: :btree
 
   create_table "recipeingredients", force: :cascade do |t|
     t.integer "recipe_id",     limit: 4
@@ -66,6 +70,8 @@ ActiveRecord::Schema.define(version: 20150329190147) do
     t.float   "cookingtime", limit: 24
   end
 
+  add_index "recipes", ["uuid"], name: "index_recipes_on_uuid", unique: true, using: :btree
+
   create_table "recipes_users", id: false, force: :cascade do |t|
     t.integer "recipe_id", limit: 4, null: false
     t.integer "user_id",   limit: 4, null: false
@@ -82,6 +88,8 @@ ActiveRecord::Schema.define(version: 20150329190147) do
     t.datetime "lastupdated"
   end
 
+  add_index "storechains", ["uuid"], name: "index_storechains_on_uuid", unique: true, using: :btree
+
   create_table "stores", force: :cascade do |t|
     t.string   "uuid",        limit: 255
     t.integer  "chain_id",    limit: 4
@@ -94,6 +102,8 @@ ActiveRecord::Schema.define(version: 20150329190147) do
     t.string   "identifier",  limit: 255
     t.datetime "lastupdated"
   end
+
+  add_index "stores", ["uuid"], name: "index_stores_on_uuid", unique: true, using: :btree
 
   create_table "stores_users", id: false, force: :cascade do |t|
     t.integer "store_id", limit: 4, null: false
@@ -119,5 +129,7 @@ ActiveRecord::Schema.define(version: 20150329190147) do
     t.float  "latitude",   limit: 24
     t.float  "longitude",  limit: 24
   end
+
+  add_index "users", ["uuid"], name: "index_users_on_uuid", unique: true, using: :btree
 
 end
