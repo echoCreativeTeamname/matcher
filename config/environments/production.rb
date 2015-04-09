@@ -79,4 +79,6 @@ Rails.application.configure do
 
   config.assets.compile = true
   config.assets.precompile =  ['*.js', '*.css', '*.css.erb']
+
+  config.action_controller.asset_host = 'assets.yoeori.nl/uva-admin'
 end
