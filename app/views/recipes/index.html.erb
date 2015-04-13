@@ -4,15 +4,16 @@
     <th style="text-align: center;">#</th>
     <th>naam</th>
     <th>type</th>
-    <th>geschatte prijs</th>
+    <th>orde prijs <i style="font-weight: normal;">Hoge schatting!</i></th>
   </tr>
   <% @recipes.each do |recipe| %>
   <tr onclick="window.location='recipes/<%= recipe.id %>'">
     <td style="text-align: center;"><%= recipe.id %></td>
     <td><%= recipe.name %></td>
     <td><%= recipe.dish_type %></td>
-    <td><%= recipe.estimated_cost.to_f %></td>
+    <td>&euro;<%= recipe.estimated_cost.to_s.sub!(".", ",") %></td>
   </tr>
   <% end %>
 </table>
 <a class="btn btn-info" href="/recipes/new">nieuw recept</a>
+<a class="btn btn-default" href="/recipes/calc">prijzen herberekenen</a>
