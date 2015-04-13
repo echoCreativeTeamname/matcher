@@ -1,5 +1,5 @@
-<h2><i>Er zijn <%= @ingredientCount %> <a href="/match/ingredients">ingrediënt<%= (@ingredientCount != 1) ? "en" : "" %></a><!--TODO--> &amp; <%= @recipeCount %> <a href="/match/recipes">recept<%= (@recipeCount != 1) ? "en" : "" %></a> die nog moeten worden gematched</i></h2>
-<p>Recepten die nog niet gematched zijn worden niet weergeven door de API, van ongematchede ingredienten kan geen prijs worden gegeven.</p>
+<h2><i>Er zijn <%= @ingredientCount %> <a href="/match/ingredients">ingrediënt<%= (@ingredientCount != 1) ? "en" : "" %></a> &amp; <%= @recipeCount %> <a href="/match/recipes">recept<%= (@recipeCount != 1) ? "en" : "" %></a> die nog moeten worden gematcht</i></h2>
+<p>Recepten die nog niet gematcht zijn worden niet weergeven door de API, van ongematchte ingredienten kan geen prijs worden gegeven.</p>
 <br />
 <div class="row">
   <div class="col-md-6">
@@ -18,7 +18,7 @@
       <% end %>
     </table>
     <% else %>
-    <p>Er zijn geen ungematchede ingrediënten.</p>
+    <p>Er zijn geen ongematchte ingrediënten.</p>
     <% end %>
   </div>
   <div class="col-md-6">
@@ -37,7 +37,7 @@
       <% end %>
     </table>
     <% else %>
-    <p>Er zijn geen ungematchede recepten.</p>
+    <p>Er zijn geen ongematchte recepten.</p>
     <% end %>
   </div>
 </div>

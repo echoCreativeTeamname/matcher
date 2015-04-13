@@ -1,0 +1,100 @@
+<div class="form-horizontal">
+  <h1>ingrediënten matchen</h1>
+  <div class="row">
+    <div class="col-md-6">
+      <h2>Zoeken (<i id="current_storechain"></i>)</h2>
+      <div class="input-group">
+        <input type="text" class="form-control" id="searchBox" value="<%= @ingredient.name %>">
+        <span class="input-group-btn">
+          <button class="btn btn-info" type="button">zoeken</button>
+        </span>
+      </div>
+      <br />
+      <div id="result"></div>
+    </div>
+    <div class="col-md-6">
+      <h2>Ingrediënt</h2>
+      <div class="form-group">
+        <label class="col-sm-4 control-label" style="text-align: left;">ID</label>
+        <div class="col-sm-8 control-label" style="text-align: left;">
+            <%= @ingredient.id %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-sm-4 control-label" style="text-align: left;">UUID</label>
+        <div class="col-sm-8 control-label" style="text-align: left;">
+            <%= @ingredient.uuid %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-sm-4 control-label" style="text-align: left;">Naam</label>
+        <div class="col-sm-8 control-label" style="text-align: left;">
+            <%= @ingredient.name %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-sm-4 control-label" style="text-align: left;">Gezondheids klasse</label>
+        <div class="col-sm-8 control-label" style="text-align: left;">
+            <%= @ingredient.healthclass %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-sm-4 control-label" style="text-align: left;">Producten</label>
+      </div>
+
+      <% @storechain_data.each do |storechain| %>
+      <div class="form-group">
+        <label data-storechain="<%= storechain["id"] %>" class="col-sm-4 control-label" style="text-align: left; font-weight: normal;"><i><%= storechain["name"].to_s %></i></label>
+        <div class="col-sm-8 control-label" style="text-align: left;">
+          <% if(storechain["product"]) %>
+          <%= storechain["product"]["name"] %>
+          <% else %>
+          null
+          <% end %>
+        </div>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  STORECHAINS_DATA = <%= raw @storechain_data.to_json %>;
+  CURRENT_CHAIN = STORECHAINS_DATA[0]
+  $("#searchBox").keypress(function(e) {
+    if(e.which == 13) {
+      update_search();
+    }
+  });
+
+  function update() {
+    for(var i = 0; i < STORECHAINS_DATA.length; i++) {
+      chain = STORECHAINS_DATA[i];
+      if(chain["product"] == null) {
+        CURRENT_CHAIN = chain;
+        break;
+      }
+    }
+
+    update_search();
+    $("[data-storechain='"+ CURRENT_CHAIN["id"] +"']").css("text-decoration", "underline");
+    $("#current_storechain").text(CURRENT_CHAIN["name"]);
+  }
+
+  function update_search() {
+    text = $("#searchBox").val()
+    console.log(text);
+
+    $.ajax({
+      url: "/match/products/find?name="+ text +"&chain_id=" + CURRENT_CHAIN["id"],
+    }).done(function(data) {
+      $("#result").empty();
+      $("#result").html(data);
+    });
+  }
+
+  update();
+</script>

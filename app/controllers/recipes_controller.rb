@@ -26,6 +26,15 @@ class RecipesController < ApplicationController
     redirect_to "/recipes/#{params[:id]}?edited=true"
   end
 
+  # GET /recipes/calc
+  def calc_cost
+    Recipe.all.each do |recipe|
+      recipe.calc_cost
+    end
+
+    redirect_to "/recipes?calc=true"
+  end
+
   # GET /recipes/:id/delete_ingredient/:ingredient_id
   def delete_ingredient
     ingredient = Recipeingredient.find_by(recipe_id: params[:id], ingredient_id: params[:ingredient_id])

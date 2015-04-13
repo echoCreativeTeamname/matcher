@@ -15,6 +15,7 @@ Rails.application.routes.draw do
 
   get 'recipes' => 'recipes#index'
   get 'recipes/new' => 'recipes#create'
+  get 'recipes/calc' => 'recipes#calc_cost'
   get 'recipes/:id' => 'recipes#recipe'
   post 'recipes/:id/update' => 'recipes#update'
   get 'recipes/:id/delete' => 'recipes#delete'
@@ -22,6 +23,10 @@ Rails.application.routes.draw do
   get 'recipes/:id/delete_ingredient/:ingredient_id' => 'recipes#delete_ingredient'
 
   get 'match' => 'match#index'
+  get 'match/ingredients' => 'match#ingredients'
+  get 'match/ingredients/:id' => 'match#ingredient'
+  get 'match/recipes' => 'match#recipes'
+  get 'match/recipes/:id' => 'match#recipe'
   get 'match/products/find' => 'match#find_products'
   get 'match/ingredients/find' => 'match#find_ingredients'
 end

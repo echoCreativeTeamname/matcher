@@ -108,7 +108,7 @@
           <td style="text-align: center;"></td>
           <td>
             <select class="form-control" name="ingredient_id" required>
-              <% Ingredient.all.each do |ingredient| %>
+              <% Ingredient.order(:name).all.each do |ingredient| %>
                 <option value="<%= ingredient.id %>"><%= ingredient.name %></option>
               <% end %>
             </select>

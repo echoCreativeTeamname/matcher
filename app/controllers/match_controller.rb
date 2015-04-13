@@ -1,31 +1,51 @@
 class MatchController < ApplicationController
 
 	def index
-		@chainCount = Storechain.all.size
+		expire_fragment('current-matcher-status')
 
-		# ingredient count
-		@ingredientCount = 0
-		@unmatchedIngredients = []
-		Ingredient.all.includes(:products, :recipeingredients).each do |ing|
-			if ing.products.size < @chainCount
-				@ingredientCount += 1
-				@unmatchedIngredients << ing
-			end
-		end
+		@unmatchedIngredients = getUnmatchedIngredients
+		@ingredientCount = @unmatchedIngredients.size
 
-		@recipeCount = 1
-		@unmatchedRecipes = []
+		@unmatchedRecipes = getUnmatchedRecipes
+		@recipeCount = @unmatchedRecipes.size
 	end
 
 	def ingredients
+		expire_fragment('current-matcher-status')
 
+		unmatchedIngredients = getUnmatchedIngredients
+		unless(unmatchedIngredients.empty?)
+			redirect_to "/match/ingredients/0"
+		else
+			redirect_to "/match"
+		end
 	end
-
-
 
 	# /match/recipes
 	def recipes
+		expire_fragment('current-matcher-status')
 
+		unmatchedRecipes = getUnmatchedRecipes
+		unless(unmatchedRecipes.empty?)
+			redirect_to "/match/recipes/#{unmatchedRecipes[0].id}"
+		else
+			redirect_to "/match"
+		end
+	end
+
+	# /match/ingredients/:id
+	def ingredient
+		unmatchedIngredients = getUnmatchedIngredients
+		if(@ingredient = unmatchedIngredients.fetch(params[:id].to_i, false))
+			@i = params[:id].to_i
+			@storechain_data = Storechain.all.as_json.map do |storechain|
+				ingredient = @ingredient.products.find_by(storechain: storechain["id"]);
+				storechain["product"] = ingredient ? ingredient.as_json : nil
+				storechain
+			end
+		else
+			redirect_to "/match/ingredients"
+		end
 	end
 
 	# /match/recipes/:recipes_id
