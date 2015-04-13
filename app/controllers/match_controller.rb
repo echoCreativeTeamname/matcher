@@ -48,6 +48,19 @@ class MatchController < ApplicationController
 		end
 	end
 
+	# /match/ingredients/:id/save
+	def save_ingredient
+		unmatchedIngredients = getUnmatchedIngredients
+		ingredient = unmatchedIngredients.fetch(params[:id].to_i, false)
+		ingredient.products.clear
+
+		Storechain.all.each do |storechain|
+			product = Product.find(params["storechain_#{storechain.id}".to_s])
+			ingredient.products << product
+		end
+		render json: {test: true}
+	end
+
 	# /match/recipes/:recipes_id
 	def recipe
 

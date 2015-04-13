@@ -24,9 +24,12 @@ Rails.application.routes.draw do
 
   get 'match' => 'match#index'
   get 'match/ingredients' => 'match#ingredients'
+  get 'match/ingredients/find' => 'match#find_ingredients'
+  get 'match/ingredients/:id/save' => 'match#save_ingredient'
   get 'match/ingredients/:id' => 'match#ingredient'
   get 'match/recipes' => 'match#recipes'
   get 'match/recipes/:id' => 'match#recipe'
   get 'match/products/find' => 'match#find_products'
-  get 'match/ingredients/find' => 'match#find_ingredients'
+
+
 end

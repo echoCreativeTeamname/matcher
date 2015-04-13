@@ -1,12 +1,12 @@
 <div class="form-horizontal">
   <h1>ingrediënten matchen</h1>
   <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-6" id="search">
       <h2>Zoeken (<i id="current_storechain"></i>)</h2>
       <div class="input-group">
         <input type="text" class="form-control" id="searchBox" value="<%= @ingredient.name %>">
         <span class="input-group-btn">
-          <button class="btn btn-info" type="button">zoeken</button>
+          <button class="btn btn-info" type="button" onclick="update_search();">zoeken</button>
         </span>
       </div>
       <br />
@@ -49,7 +49,7 @@
       <% @storechain_data.each do |storechain| %>
       <div class="form-group">
         <label data-storechain="<%= storechain["id"] %>" class="col-sm-4 control-label" style="text-align: left; font-weight: normal;"><i><%= storechain["name"].to_s %></i></label>
-        <div class="col-sm-8 control-label" style="text-align: left;">
+        <div class="col-sm-8 control-label" data-storechain-second="<%= storechain["id"] %>" style="text-align: left;">
           <% if(storechain["product"]) %>
           <%= storechain["product"]["name"] %>
           <% else %>
@@ -58,12 +58,16 @@
         </div>
       </div>
       <% end %>
+
+      <button class="btn btn-info disabled pull-right" id="savebutton" onclick="save();">Opslaan</a>
     </div>
   </div>
 </div>
 <script type="text/javascript">
   STORECHAINS_DATA = <%= raw @storechain_data.to_json %>;
-  CURRENT_CHAIN = STORECHAINS_DATA[0]
+  CURRENT_CHAIN = null;
+  CURRENT_CHAIN_I = null;
+  ID = <%= @i %>
   $("#searchBox").keypress(function(e) {
     if(e.which == 13) {
       update_search();
@@ -71,28 +75,67 @@
   });
 
   function update() {
+    CURRENT_CHAIN = null;
+    CURRENT_CHAIN_I = null;
     for(var i = 0; i < STORECHAINS_DATA.length; i++) {
       chain = STORECHAINS_DATA[i];
       if(chain["product"] == null) {
         CURRENT_CHAIN = chain;
+        CURRENT_CHAIN_I = i;
         break;
       }
     }
 
-    update_search();
-    $("[data-storechain='"+ CURRENT_CHAIN["id"] +"']").css("text-decoration", "underline");
-    $("#current_storechain").text(CURRENT_CHAIN["name"]);
+    if(CURRENT_CHAIN != null) {
+      update_search();
+      $("[data-storechain]").css("text-decoration", "none");
+      $("[data-storechain='"+ CURRENT_CHAIN["id"] +"']").css("text-decoration", "underline");
+      $("#current_storechain").text(CURRENT_CHAIN["name"]);
+      $("#savebutton").addClass("disabled")
+    } else {
+      $("#savebutton").removeClass("disabled")
+      $("#search").css({opacity: 0.5})
+    }
+
+
   }
 
   function update_search() {
     text = $("#searchBox").val()
-    console.log(text);
 
     $.ajax({
       url: "/match/products/find?name="+ text +"&chain_id=" + CURRENT_CHAIN["id"],
     }).done(function(data) {
       $("#result").empty();
       $("#result").html(data);
+    });
+  }
+
+  function set(id, name) {
+    product = {"id": id, "name": name}
+
+    $("[data-storechain-second='"+ CURRENT_CHAIN["id"] +"']").text(name)
+
+    CURRENT_CHAIN["product"] = product;
+
+    STORECHAINS_DATA[CURRENT_CHAIN_I] = CURRENT_CHAIN;
+    update();
+  }
+
+  function save() {
+
+    url = ""
+    for(var i = 0; i < STORECHAINS_DATA.length; i++) {
+      chain = STORECHAINS_DATA[i]
+      url += "storechain_" + chain["id"] + "=" + chain["product"]["id"] + "&"
+    }
+
+    $.ajax({
+      url: "/match/ingredients/"+ ID +"/save?" + url
+    }).done(function(data) {
+      console.log(data);
+
+      window.location = "/match/ingredients"
     });
   }
 

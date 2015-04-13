@@ -6,7 +6,7 @@
     <th>prijs</th>
   </tr>
   <% @products.each do |product|%>
-  <tr onclick="">
+  <tr onclick="set(<%= product.id %>, '<%= product.name %>')">
     <td style="text-align: center;"><%= product.id %></td>
     <td><%= product.name %></td>
     <td><%= product.amount %></td>
