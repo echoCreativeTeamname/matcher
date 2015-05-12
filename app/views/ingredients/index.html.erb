@@ -43,9 +43,9 @@
     <th width="1px"></th>
   </tr>
   <% count = Storechain.all.size.to_i %>
-  <% @ingredients.includes([:recipes, :products]).each do |ingredient| %>
+  <% @ingredients.each do |ingredient| %>
   <tr onclick="window.location='ingredients/<%= ingredient.id %>'">
-    <% if(ingredient.products.all.size < count) %>
+    <% if(ingredient.products.size < count) %>
     <td style="text-align: center; color: #FF4136;"><%= ingredient.id %></td>
     <% else %>
     <td style="text-align: center;"><%= ingredient.id %></td>

@@ -1,0 +1,36 @@
+<form action="/storechains/<%= @storechain.id %>/update" accept-charset="UTF-8" method="post" class="form-horizontal">
+  <div class="form-group">
+    <label class="col-sm-2 control-label" style="text-align: left;">ID</label>
+    <div class="col-sm-10 control-label" style="text-align: left;">
+        <%= @storechain.id %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="col-sm-2 control-label" style="text-align: left;">Naam</label>
+    <div class="col-sm-10 control-label" style="text-align: left;">
+        <%= @storechain.name %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="storechain_healthclass" class="col-sm-2 control-label" style="text-align: left;">Gezondheids klasse</label>
+    <div class="col-sm-10">
+      <select class="form-control" name="storechain[healthclass]" id="storechain_healthclass">
+        <% 3.times do |i| %>
+          <% if(@storechain.healthclass == i) %>
+            <option selected><%= i %></option>
+          <% else %>
+            <option><%= i %></option>
+          <% end %>
+        <% end %>
+      </select>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button type="submit" class="btn btn-default" name="commit">Opslaan</button>&nbsp;&nbsp;&nbsp;<small>De naam wordt bepaald door de crawler en is daarom niet aanpasbaar.</small>
+    </div>
+  </div>
+</form>

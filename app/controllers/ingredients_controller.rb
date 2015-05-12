@@ -4,7 +4,7 @@ class IngredientsController < ApplicationController
 
   # GET /ingredients
   def index
-    @ingredients = Ingredient.all
+    @ingredients = Ingredient.includes(:products, :recipes).all
   end
 
   # GET /ingredients/:id
@@ -21,12 +21,16 @@ class IngredientsController < ApplicationController
 
   # GET /ingredients/:id/delete
   def delete
+    expire_fragment('current-matcher-status')
+
     Ingredient.find(params[:id]).destroy
     redirect_to "/ingredients?deleted=true"
   end
 
   # POST /ingredients/create
   def new
+    expire_fragment('current-matcher-status')
+
     args = getIngredientParameters
 
     if(args[:name].to_s == "")

@@ -18,7 +18,7 @@ source: https://github.com/echoCreativeTeamname/matcher
         <div class="navbar-header">
           <a class="navbar-brand" href="/">Ambrosia Matcher</a>
           <p class="navbar-text" style="margin-left: 0;">
-            <% cache('current-matcher-status') do %>
+            <% cache 'current-matcher-status', skip_digest: true do %>
             <%= raw controller.getMatcherStatus %>
             <% end %>
           </p>

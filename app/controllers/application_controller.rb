@@ -38,7 +38,7 @@ class ApplicationController < ActionController::Base
   def getUnmatchedIngredients
     chainCount = Storechain.all.size
     unmatchedIngredients = []
-    Ingredient.all.includes(:products, :recipeingredients).each do |ing|
+    Ingredient.includes(:products, :recipeingredients).all.each do |ing|
       if ing.products.size < chainCount
         unmatchedIngredients << ing
       end

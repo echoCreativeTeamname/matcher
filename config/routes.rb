@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   get 'stores/:id' => 'stores#store'
 
   get 'storechains' => 'storechains#index'
+  get 'storechains/:id' => 'storechains#storechain'
 
   get 'ingredients' => 'ingredients#index'
   post 'ingredients/create' => 'ingredients#new'
